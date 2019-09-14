@@ -23,8 +23,17 @@ def refresh_query():
 
 	return results[-20:]
 
-def filter(prev:list , curr: list):
-	return list(set(curr)-set(prev))
+# Filters out all URLs that are not from reddit, and already noted URls
+
+def filter(c_list):
+	temp = []
+	for url in c_list:
+		if "reddit" in url[0]:
+			print(url[0])
+			temp.add(url[0])
+
+	return temp
+	#return list(set(c_list)-set(p_list))
 
 def start():
 	threading.Timer(10.0, start).start()
@@ -32,8 +41,8 @@ def start():
 
 	try:
 		data = refresh_query()
-		f.write(json.dumps(filter(prev,data)))
-		prev = data
+		f.write(json.dumps(filter(data)))
+
 		print("Written to file successfully")
 		f.close()
 	except:

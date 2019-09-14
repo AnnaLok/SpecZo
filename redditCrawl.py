@@ -13,6 +13,3 @@ subreddit_list = subreddit.new(limit=5)
 for submission in subreddit_list:
     print('Title: {}\nLink: {}\nClicked: {}'.format(submission.title, submission.url, submission.clicked))
 
-
-C:\Users\Ivan Chow\PycharmProjects\HTN2019\redditCrawl.py
-C:\Users\Ivan Chow\PycharmProjects\HTN2019\retrieveURL.py
