@@ -7,7 +7,7 @@
     "128": "firebase.png"
   },
   "browser_action": {
-    "default_icon": "firebase.png",
+    "default_icon": "newspaper.png",
     "default_popup": "credentials.html"
   },
   "background": {
@@ -24,5 +24,5 @@
       "https://www.googleapis.com/auth/userinfo.profile"
     ]
   },
-  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkiL+McTNbbKBw2F2BfNczU5Q1tKujAdsXZsJB6mC3uOke+iv6dE1AjcM8LAfKj+bYcr5zG1aBADjrTahw/dt9ESxp4mtdVZepuu0o4XlOkFZQPHW7FMjrtwmAC7dhqasUTa/0FTxc1xbGmz9ufs796SPSNxwCJqDqTJWO6CCj0tOR/cH9+fGdWG7GzWoYwJ6IFXTyZ+U+76zzfV+MpDte1ueFsJQHD9FKGRa8xgHPIfsxMqDzVCGvpTmapifHy2VYj/sLVLbmfD/6yGWSryTAp7YJYrJZ8XqIldvXgy4TAIAzkwQvJHjclTQ7iOTcFNljPZ0NJFTeRFax6VCDHKTwIDAQAB"
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkiL+McTNbbKBw2F2BfNczU5Q1tKujAdsXZsJB6mC3uOke+iv6dE1AjcM8LAfKj+bYcr5zG1aBADjrTahw/dt9ESxp4mtdVZepuu0o4XlOkFZQPHW7FMjrtwmAC7dhqasUTa/0FTxc1xbGmz9ufs796SPSNxwCJqDqTJWO6CCj0tOR/cH9+fGdWG7GzWoYwJ6IFXTyZ+U+76zzfV+MpD6te1ueFsJQHD9FKGRa8xgHPIfsxMqDzVCGvpTmapifHy2VYj/sLVLbmfD/6yGWSryTAp7YJYrJZ8XqIldvXgy4TAIAzkwQvJHjclTQ7iOTcFNljPZ0NJFTeRFax6VCDHKTwIDAQAB"
 }
