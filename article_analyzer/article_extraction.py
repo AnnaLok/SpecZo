@@ -1,5 +1,3 @@
-import operator
-
 from goose3 import Goose
 # Imports the Google Cloud client library
 from google.cloud import language
@@ -10,7 +8,6 @@ from google.cloud import language_v1beta2
 from google.cloud.language_v1beta2 import enums as enums_topic
 from google.cloud.language_v1beta2 import types as types_topic
 
-## url from server which gets from chrome extension
 
 urls = ['https://www.cbc.ca/news/politics/cabinet-confidence-trudeau-scheer-1.5283175',"https://www.bbc.com/news/science-environment-49567197", 'https://www.economist.com/leaders/2019/09/12/how-the-world-will-change-as-computers-spread-into-everyday-objects']
 # urls = ['https://www.foxnews.com/politics/pension-funds-in-iran-on-brink-of-collapse-amid-us-maximum-pressure-campaign']
@@ -88,6 +85,9 @@ def get_sentiment(article_list: list):
 def main():
     articles = filter_articles(urls=urls)
     get_topic(articles)
+    for a in articles:
+        del a['cleaned_text']
+        print(a)
 
 
 if __name__ == "__main__":
