@@ -64,7 +64,13 @@ async function persistCategories() {
   analysis.trim().split('\n').forEach(entry => {
     let [category, bias] = entry.split(' ')
 
-    categoryBiases[category] = bias
+    categoryBiases[category] = categoryBiases[category] ? {
+      bias: (categoryBiases[category].bias * count + bias) / (categoryBiases[category].count + 1),
+      count: categoryBiases[category].count + 1
+    } : {
+      bias: bias,
+      count: 1,
+    }
   })
 
   module.exports.getSentiments = function() {
