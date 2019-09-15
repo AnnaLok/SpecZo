@@ -3,6 +3,7 @@ import sqlite3
 from shutil import copy
 import json
 import threading
+import redditCrawl
 
 
 data_path = "C:\\History"
@@ -23,44 +24,40 @@ def refresh_query():
 
 	return results[-20:]
 
+def unique(items):
+    found = set([])
+    keep = []
+
+    for item in items:
+        if item not in found:
+            found.add(item)
+            keep.append(item)
+
+    return keep
+
 # Filters out all URLs that are not from reddit, and already noted URls
 
-def filter(c_list):
+def filter_r(list):
 	temp = []
-	for url in c_list:
-		if "reddit" in url[0]:
-			print(url[0])
-			temp.add(url[0])
+	for url in list:
+		if "reddit.com/r/" in url[0]:
+			instance = redditCrawl.getInstance(url[0])
+			if redditCrawl.filter_domain(instance.domain):
+				temp.append(instance.url)
 
-	return temp
-	#return list(set(c_list)-set(p_list))
+	return unique(temp)
+
+
 
 def start():
 	threading.Timer(10.0, start).start()
 	f = open('C:\\History\\history.json', 'w')
 
-	try:
-		data = refresh_query()
-		f.write(json.dumps(filter(data)))
-
-		print("Written to file successfully")
-		f.close()
-	except:
-		print("Something went wrong!")
-		f.close()
+	data = refresh_query()
+	print(data)
+	print(filter_r(data))
+	f.write(json.dumps(filter_r(data)))
+	print("Written to file successfully")
+	f.close()
 
 start()
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -6,10 +6,22 @@ reddit = praw.Reddit(client_id='AfTzpfgZkekFVA', \
                      username='HTN2019_SpecZo', \
                      password='northstar6')
 
-subreddit = reddit.subreddit('SmashBrosUltimate')
+def getInstance(site):
+    try:
+        return reddit.submission(url=site)
+    except:
+        print("Invalid URL")
 
-subreddit_list = subreddit.new(limit=5)
+def filter_domain(domain):
+    return not("self" in domain or "redd" in domain or "imgur" in domain)
 
-for submission in subreddit_list:
-    print('Title: {}\nLink: {}\nClicked: {}'.format(submission.title, submission.url, submission.clicked))
+
+#self, redd, i.imgur.com
+
+#subreddit = reddit.subreddit('SmashBrosUltimate')
+
+#subreddit_list = subreddit.new(limit=5)
+
+#for submission in subreddit_list:
+#    print('Title: {}\nLink: {}\nClicked: {}'.format(submission.title, submission.url, submission.clicked))
 
