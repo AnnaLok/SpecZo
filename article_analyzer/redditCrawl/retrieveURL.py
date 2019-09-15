@@ -3,7 +3,7 @@ import sqlite3
 from shutil import copy
 import json
 import threading
-import redditCrawl
+from article_analyzer.redditCrawl.redditCrawl import getInstance, filter_domain
 
 data_path = os.getcwd() + "\\history_db"
 history_db = os.path.join(data_path, 'History')
@@ -41,8 +41,8 @@ def filter_r(list):
     temp = []
     for url in list:
         if "reddit.com/r/" in url[0]:
-            instance = redditCrawl.getInstance(url[0])
-            if instance is not None and redditCrawl.filter_domain(instance.domain):
+            instance = getInstance(url[0])
+            if instance is not None and filter_domain(instance.domain):
                 temp.append(instance.url)
 
     return unique(temp)
@@ -58,11 +58,11 @@ def start():
     print("Written to file successfully")
     f.close()
 
+def retrieve_url():
+    try:
+        os.mkdir('history_db')
+        print("created folder")
+    except FileExistsError:
+        print("file already exists")
 
-try:
-    os.mkdir('history_db')
-    print("created folder")
-except FileExistsError:
-    print("file already exists")
-
-start()
+    start()

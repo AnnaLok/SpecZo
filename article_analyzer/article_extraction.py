@@ -9,17 +9,17 @@ from google.cloud.language_v1beta2 import enums as enums_topic
 from google.cloud.language_v1beta2 import types as types_topic
 
 import sys
-
-import config
+import os
+from article_analyzer.redditCrawl.retrieveURL import retrieve_url
 import json
 
-urls = [
-    # 'https://www.cbc.ca/news/politics/cabinet-confidence-trudeau-scheer-1.5283175',
-    "https://www.bbc.com/news/science-environment-49567197",
-    # 'https://www.economist.com/leaders/2019/09/12/how-the-world-will-change-as-computers-spread-into-everyday-objects',
-    'https://www.foxnews.com/politics/pension-funds-in-iran-on-brink-of-collapse-amid-us-maximum-pressure-campaign'
-]
-# urls = ['https://www.foxnews.com/politics/pension-funds-in-iran-on-brink-of-collapse-amid-us-maximum-pressure-campaign']
+# urls = [
+#     # 'https://www.cbc.ca/news/politics/cabinet-confidence-trudeau-scheer-1.5283175',
+#     "https://www.bbc.com/news/science-environment-49567197",
+#     # 'https://www.economist.com/leaders/2019/09/12/how-the-world-will-change-as-computers-spread-into-everyday-objects',
+#     'https://www.foxnews.com/politics/pension-funds-in-iran-on-brink-of-collapse-amid-us-maximum-pressure-campaign'
+# ]
+# # urls = ['https://www.foxnews.com/politics/pension-funds-in-iran-on-brink-of-collapse-amid-us-maximum-pressure-campaign']
 
 def get_urls():
     input_str = sys.stdin.read()
@@ -28,6 +28,14 @@ def get_urls():
 def get_json(json_file):
     with open(json_file) as file:
         return json.loads(file.read())
+
+def get_urls_reddit():
+    ## grabs the urls from reddit posts visited
+    retrieve_url()
+    file_path = os.path.join(os.getcwd(), 'redditCrawl', 'history_db', 'history.json')
+    article_urls = get_json(file_path)
+
+    return article_urls
 
 def filter_articles(urls: list) -> list:
     ## return list of dicts with the info
@@ -97,7 +105,8 @@ def create_score(article):
     return site_score + sentiment_total
 
 def main():
-    urls = get_urls()
+    # urls = get_urls()
+    urls = get_urls_reddit()
     articles = filter_articles(urls=urls)
     for article in articles:
         if 'article:section' not in article:
