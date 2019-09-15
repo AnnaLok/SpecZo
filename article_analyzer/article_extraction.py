@@ -64,7 +64,8 @@ def filter_articles(urls: list) -> list:
 def filter_topic(topic_list: str) -> str:
     topic = topic_list
     ## this gets rid of first slash
-    topic = topic[1:]
+    if topic.find('/') == 0:
+        topic = topic[1:]
     ## this gets rid of stuff after the second slash
     news_index = topic.find('News')
     if news_index == 0:
@@ -73,6 +74,12 @@ def filter_topic(topic_list: str) -> str:
     slash_index = topic.find('/')
     if slash_index != -1:
         topic = topic[:slash_index]
+
+    comma_index = topic.find(',')
+
+    if comma_index != -1:
+        topic = topic[:comma_index]
+
     return topic
 
 def get_topic(article):
@@ -123,8 +130,9 @@ def main():
     for article in articles:
         if 'article:section' not in article:
             article['article:section'] = get_topic(article)
+        else:
+            article['article:section'] = filter_topic(article['article:section'])
         article['sentiment'] = get_sentiment(article)
-        #print(article['sentiment'])
         article['bias_score'] = create_score(article)
         print(article['article:section'], article['bias_score'])
 

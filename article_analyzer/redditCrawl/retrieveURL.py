@@ -3,6 +3,7 @@ import sqlite3
 from shutil import copy
 import json
 import threading
+import logging
 from article_analyzer.redditCrawl.redditCrawl import getInstance, filter_domain
 
 data_path = os.getcwd() + "\\history_db"
@@ -59,16 +60,13 @@ def start():
     f = open(data_path + '\\history.json', 'w+')
 
     data = refresh_query()
-    print(filter_r(data))
     f.write(json.dumps(filter_r(data)))
-    print("Written to file successfully")
     f.close()
 
 def retrieve_url():
     try:
         os.mkdir('history_db')
-        print("created folder")
     except FileExistsError:
-        print("file already exists")
+        logging.debug("file already exits")
 
     start()
