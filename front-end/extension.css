@@ -1,0 +1,45 @@
+﻿
+.header {
+}
+
+.content {
+
+}
+
+.subtitle{
+    margin: 15px;
+}
+
+.category {
+    font-style: italic;
+    font-weight: lighter;
+}
+
+
+body {
+    width: 300px;
+    height: 400px;
+    overflow: hidden;
+}
+
+ul {
+    list-style: none;
+}
+
+/*
+div.line {
+    position: relative;
+    text-align: center;
+    width: 100%
+}
+span.left {
+    position: absolute;
+    left: 0;
+}
+span.right {
+    position: absolute;
+    right: 0;
+}
+
+
+ */
