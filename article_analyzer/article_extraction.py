@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from goose3 import Goose
 # Imports the Google Cloud client library
 from google.cloud import language
@@ -10,6 +12,9 @@ from google.cloud.language_v1beta2 import types as types_topic
 
 import sys
 import os
+
+from os import sys, path
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 
 from article_analyzer.redditCrawl.retrieveURL import retrieve_url
 import json
@@ -38,7 +43,7 @@ def get_json(json_file):
 def get_urls_reddit():
     ## grabs the urls from reddit posts visited
     retrieve_url()
-    file_path = os.path.join(os.getcwd(), 'redditCrawl', 'history_db', 'history.json')
+    file_path = os.path.join(os.getcwd(), 'history_db', 'history.json')
     article_urls = get_json(file_path)
 
     return article_urls
