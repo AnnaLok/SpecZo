@@ -1,2 +1,11 @@
+# Mac + Chrome shit
 *.zip
 .DS_Store
+
+# Python shit
+.env
+__pycache__
+venv
+
+# Server shit
+node_modules
