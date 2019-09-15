@@ -10,6 +10,10 @@
     "default_icon": "newspaper.png",
     "default_popup": "extension.html"
   },
+  // "background": {
+  //   "scripts": ["background.js"],
+  //   "persistent": false
+  // },
   "permissions": [
     "identity",
     "*://*.amcharts.com/*"

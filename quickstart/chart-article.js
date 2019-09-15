@@ -41,5 +41,26 @@
             });
             pieSeries.colors = colorSet;
 
+            var legend = new am4maps.Legend();
+            legend.parent = chart.chartContainer;
+            legend.background.fill = am4core.color("#000");
+            legend.background.fillOpacity = 0.05;
+            legend.width = 100;
+            legend.align = "right";
+            legend.padding(10, 15, 10, 15);
+            legend.data = [{
+            "name": "2016",
+            "fill":"#72A6B2"
+            }, {
+            "name": "2017",
+            "fill": "#667E93"
+            }, {
+            "name": "2018",
+            "fill": "#488BB2"
+            }];
+            legend.itemContainers.template.clickable = false;
+            legend.itemContainers.template.focusable = false;
+
+
 
         });

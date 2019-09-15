@@ -1,35 +1,45 @@
-// TODO(DEVELOPER): Change the values below using values from the initialization snippet: Firebase Console > Overview > Add Firebase to your web app.
-// Initialize Firebase
-var config = {
-    apiKey: "AIzaSyA8eoP-0k6DwBmNF_H9qEdHmQakhLaeDlA",
-    authDomain: "hack-the-north-2019-252916.firebaseapp.com",
-    databaseURL: "https://hack-the-north-2019-252916.firebaseio.com",
-    projectId: "hack-the-north-2019-252916",
-    storageBucket: "",
-  };
-  firebase.initializeApp(config);
-  
-  /**
-   * initApp handles setting up the Firebase context and registering
-   * callbacks for the auth status.
-   *
-   * The core initialization is in firebase.App - this is the glue class
-   * which stores configuration. We provide an app name here to allow
-   * distinguishing multiple app instances.
-   *
-   * This method also registers a listener with firebase.auth().onAuthStateChanged.
-   * This listener is called when the user is signed in or out, and that
-   * is where we update the UI.
-   *
-   * When signed in, we also authenticate to the Firebase Realtime Database.
-   */
-  function initApp() {
-    // Listen for auth state changes.
-    firebase.auth().onAuthStateChanged(function(user) {
-      console.log('User state change detected from the Background script of the Chrome Extension:', user);
-    });
-  }
-  
-  window.onload = function() {
-    initApp();
-  };
+
+// Runs when extension installed.
+chrome.runtime.onInstalled.addListener(function() {
+  // chrome.contextMenus.create({
+  //   "id": "sampleContextMenu",
+  //   "title": "Sample Context Menu",
+  //   "contexts": ["selection"]
+  // });
+});
+
+
+// Runs on web navigation.
+chrome.webNavigation.onCompleted.addListener(function({errorOccured, url, parentFrameId}) {
+  alert(`this is the motherfucking url: ${url}`)
+  sendUrlToServer(url)
+}, 
+// event filter: {url: [{urlMatches : 'https://www.google.com/'}]}
+);
+
+function sendUrlToServer(url) {
+  fetch('http://localhost:8000/urls', {
+    method: 'POST',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'omit',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    redirect: 'follow',
+    referrer: 'no-referrer', // no-referrer, *client
+    body: JSON.stringify({
+      url: url
+    }), // body data type must match "Content-Type" header
+  })
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson) {
+    console.log(JSON.stringify(myJson));
+    alert(JSON.stringify(myJson));
+  }).catch(err => {
+    console.log(err)
+    alert(err);
+  })
+}
