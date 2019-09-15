@@ -1,12 +1,14 @@
-﻿
 .header {
+    margin: 0px 0px 10px 15px;
 }
 
-.content {
-
+.title {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 25px;
+    font-weight: bolder;
+    font-style: italic;
 }
-
-.subtitle{
+.subtitle {
     margin: 15px;
 }
 
@@ -22,29 +24,11 @@
 
 
 body {
-    width: 600px;
-    height: 600px;
+    width: 400px;
+    height: 500px;
     overflow: hidden;
 }
 
 ul {
     list-style: none;
 }
-
-/*
-div.line {
-    position: relative;
-    text-align: center;
-    width: 100%
-}
-span.left {
-    position: absolute;
-    left: 0;
-}
-span.right {
-    position: absolute;
-    right: 0;
-}
-
-
- */
