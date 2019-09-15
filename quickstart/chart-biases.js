@@ -36,7 +36,7 @@
             pieSeries.hiddenState.properties.startAngle = -90;
 
             var colorSet = new am4core.ColorSet();
-            colorSet.list = ["#F7CFEB", "#9FD5DD", "#A1EDA5", "#F2F08E"].map(function (color) {
+            colorSet.list = ["#5cb85c", "#5bc0de", "#f0ad4e", "#d9534f"].map(function (color) {
                 return new am4core.color(color);
             });
             pieSeries.colors = colorSet;
