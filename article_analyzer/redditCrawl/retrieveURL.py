@@ -8,10 +8,16 @@ from article_analyzer.redditCrawl.redditCrawl import getInstance, filter_domain
 data_path = os.getcwd() + "\\history_db"
 history_db = os.path.join(data_path, 'History')
 
+history_path = {
+    'Windows': '\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History',
+    'Darwin': '/Library/Application Support/Google/Chrome/Default/History'
+}
+
+import platform
 
 def refresh_query():
     # path to user's history database (Chrome)
-    copy(os.path.expanduser('~') + "\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History", data_path)
+    copy(os.path.expanduser('~') + history_path[platform.system()], data_path)
 
     # querying the db
     c = sqlite3.connect(history_db)

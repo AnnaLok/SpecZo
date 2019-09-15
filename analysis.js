@@ -55,6 +55,29 @@ calculateNewSentiments('https://www.foxnews.com/politics/pension-funds-in-iran-o
   console.log('output:', output)
 })
 
+
+async function persistCategories() {
+  let analysis = await calculateNewSentiments('https://www.foxnews.com/politics/pension-funds-in-iran-on-brink-of-collapse-amid-us-maximum-pressure-campaign')
+
+  let categoryBiases = {}
+
+  analysis.trim().split('\n').forEach(entry => {
+    let [category, bias] = entry.split(' ')
+
+    categoryBiases[category] = bias
+  })
+
+  module.exports.getSentiments = function() {
+    return categoryBiases
+  }
+
+  return categoryBiases
+
+}
+
+persistCategories()
+
+
 module.exports = {
   calculateNewSentiments
 }
