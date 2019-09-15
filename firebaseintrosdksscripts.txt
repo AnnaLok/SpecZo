@@ -1,0 +1,21 @@
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyA8eoP-0k6DwBmNF_H9qEdHmQakhLaeDlA",
+    authDomain: "hack-the-north-2019-252916.firebaseapp.com",
+    databaseURL: "https://hack-the-north-2019-252916.firebaseio.com",
+    projectId: "hack-the-north-2019-252916",
+    storageBucket: "",
+    messagingSenderId: "47427617943",
+    appId: "1:47427617943:web:ea035878eacde5f9de55d2"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
