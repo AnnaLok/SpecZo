@@ -3,6 +3,8 @@ const express = require('express');
 const app = express();
 var cors = require('cors')
 
+const analysis = require('./analysis')
+
 
 app.use(cors())
 
@@ -38,3 +40,4 @@ const response = {
 
 
 // replacement data model:
+
