@@ -10,6 +10,7 @@ from google.cloud.language_v1beta2 import types as types_topic
 
 import sys
 import os
+
 from article_analyzer.redditCrawl.retrieveURL import retrieve_url
 import json
 
@@ -20,6 +21,11 @@ import json
 #     'https://www.foxnews.com/politics/pension-funds-in-iran-on-brink-of-collapse-amid-us-maximum-pressure-campaign'
 # ]
 # # urls = ['https://www.foxnews.com/politics/pension-funds-in-iran-on-brink-of-collapse-amid-us-maximum-pressure-campaign']
+
+
+import config
+import json
+
 
 def get_urls():
     input_str = sys.stdin.read()
@@ -89,7 +95,7 @@ def get_sentiment(article):
     return {"sentiment_score": sentiment.score, "sentiment_magnitude": sentiment.magnitude}
 
 def create_score(article):
-    filename = 'news_sources.json'
+    filename = os.path.dirname(os.path.realpath(__file__)) + '/news_sources.json'
     news_sources_scores = get_json((filename))
 
     ## multiply by -1 to work with the scale created
@@ -107,15 +113,15 @@ def create_score(article):
 def main():
     # urls = get_urls()
     urls = get_urls_reddit()
+    os.chdir(os.getcwd())
     articles = filter_articles(urls=urls)
     for article in articles:
         if 'article:section' not in article:
             article['article:section'] = get_topic(article)
-        print(article['article:section'])
         article['sentiment'] = get_sentiment(article)
         #print(article['sentiment'])
         article['bias_score'] = create_score(article)
-        print(article['bias_score'])
+        print(article['article:section'], article['bias_score'])
 
 if __name__ == "__main__":
     main()
