@@ -65,7 +65,7 @@ async function persistCategories() {
     let [category, bias] = entry.split(' ')
 
     categoryBiases[category] = categoryBiases[category] ? {
-      bias: (categoryBiases[category].bias * count + bias) / (categoryBiases[category].count + 1),
+      bias: (categoryBiases[category].bias * categoryBiases[category].count + bias) / (categoryBiases[category].count + 1),
       count: categoryBiases[category].count + 1
     } : {
       bias: bias,

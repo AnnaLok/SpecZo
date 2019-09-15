@@ -24,6 +24,9 @@ function createProgressBar(title, percentage, colour) {
   progressBar.className = `progress-bar ${colour}`
   progressBar.role = 'progressbar'
   // add aria values
+
+
+
   progressBar.textContent = `${percentage}%`
 
   progressContainer.appendChild(progressBar)
