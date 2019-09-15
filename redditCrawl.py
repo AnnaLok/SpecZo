@@ -10,7 +10,7 @@ def getInstance(site):
     try:
         return reddit.submission(url=site)
     except:
-        print("Invalid URL")
+        print("")
 
 def filter_domain(domain):
     return not("self" in domain or "redd" in domain or "imgur" in domain)
