@@ -9,15 +9,19 @@ from google.cloud.language_v1beta2 import enums as enums_topic
 from google.cloud.language_v1beta2 import types as types_topic
 
 import config
+import json
 
 urls = [
-    'https://www.cbc.ca/news/politics/cabinet-confidence-trudeau-scheer-1.5283175',
-    "https://www.bbc.com/news/science-environment-49567197", 
-    'https://www.economist.com/leaders/2019/09/12/how-the-world-will-change-as-computers-spread-into-everyday-objects'
+    # 'https://www.cbc.ca/news/politics/cabinet-confidence-trudeau-scheer-1.5283175',
+    "https://www.bbc.com/news/science-environment-49567197",
+    # 'https://www.economist.com/leaders/2019/09/12/how-the-world-will-change-as-computers-spread-into-everyday-objects',
+'https://www.foxnews.com/politics/pension-funds-in-iran-on-brink-of-collapse-amid-us-maximum-pressure-campaign'
 ]
 # urls = ['https://www.foxnews.com/politics/pension-funds-in-iran-on-brink-of-collapse-amid-us-maximum-pressure-campaign']
-# urls=['https://www.reddit.com/']
 
+def get_json(json_file):
+    with open(json_file) as file:
+        return json.loads(file.read())
 
 def filter_articles(urls: list) -> list:
     ## return list of dicts with the info
@@ -44,7 +48,6 @@ def filter_topic(topic_list: str) -> str:
     slash_index = topic.find('/')
     if slash_index != -1:
         topic = topic[:slash_index]
-
     return topic
 
 def get_topic(article):
@@ -68,15 +71,35 @@ def get_sentiment(article):
         content=text,
         type=enums.Document.Type.PLAIN_TEXT
     )
-
     sentiment = client.analyze_sentiment(document).document_sentiment
-    return sentiment
+    return {"sentiment_score": sentiment.score, "sentiment_magnitude": sentiment.magnitude}
+
+def create_score(article):
+    filename = 'news_sources.json'
+    news_sources_scores = get_json((filename))
+
+    ## multiply by -1 to work with the scale created
+    sentiment_total = article['sentiment']['sentiment_score'] * article['sentiment']['sentiment_magnitude'] * -1
+
+    if article['site_name'] in news_sources_scores:
+        site_score = news_sources_scores[article['site_name']]
+    else:
+        ## default due to not knowing source
+        ## TODO: fix this with a model eventuall
+        site_score = 0
+
+    return site_score + sentiment_total
 
 def main():
     articles = filter_articles(urls=urls)
     for article in articles:
-        print(get_topic(article))
-        print(get_sentiment(article))
+        if 'article:section' not in article:
+            article['article:section'] = get_topic(article)
+        print(article['article:section'])
+        article['sentiment'] = get_sentiment(article)
+        print(article['sentiment'])
+        article['bias_score'] = create_score(article)
+        print(article['bias_score'])
 
 
 if __name__ == "__main__":

@@ -1,3 +1,5 @@
+import json
+
 from goose3 import Goose
 # Imports the Google Cloud client library
 from google.cloud import language
@@ -34,9 +36,10 @@ urls=[
     'http://addictinginfo.com/2019/05/19/trump-unleashes-an-unhinged-rant-after-republican-lawmaker-calls-for-his-impeachment/'
 ]
 
-def get_json(json_file, dictionary):
+def get_json(json_file):
     with open(json_file) as file:
-        dictionary =
+        return json.loads(file.read())
+
 def filter_articles(urls: list) -> list:
     ## return list of dicts with the info
     article_data = []
@@ -55,9 +58,23 @@ def filter_articles(urls: list) -> list:
                 print(article.opengraph['url'])
     return article_data
 
+def create_score(article):
+    filename = 'news_sources.json'
+    news_sources_scores = get_json((filename))
+
+    ## multiply by -1 to work with the scale created
+    sentiment_total = article['sentiment']['sentiment_score'] * article['sentiment']['sentiment_magnitude'] * -1
+
+    site_score = news_sources_scores[article['site_name']]
+
+    return site_score + sentiment_total
+
 
 def main():
-    articles = filter_articles(urls=urls)
+    filename = 'news_sources.json'
+    news_sources_scores = get_json((filename))
+
+    # articles = filter_articles(urls=urls)
 
 
 if __name__ == "__main__":
