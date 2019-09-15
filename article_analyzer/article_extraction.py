@@ -54,7 +54,7 @@ def filter_articles(urls: list) -> list:
     with Goose() as g:
         for link in urls:
             article = g.extract(url=link)
-            if article.opengraph['type'] == 'article':
+            if 'type' in article.opengraph and article.opengraph['type'] == 'article':
                 ## opengraph gets author, source, title, topic (article:section), description and others, but some articles don't have everything
                 article_extraction = article.opengraph
                 article_extraction['cleaned_text'] = article.cleaned_text
@@ -76,9 +76,12 @@ def filter_topic(topic_list: str) -> str:
         topic = topic[:slash_index]
 
     comma_index = topic.find(',')
-
     if comma_index != -1:
         topic = topic[:comma_index]
+
+    space_index = topic.find(' ')
+    if space_index != -1:
+        topic = topic[:space_index]
 
     return topic
 
