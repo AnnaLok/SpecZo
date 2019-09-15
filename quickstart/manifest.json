@@ -1,0 +1,28 @@
+{
+  "manifest_version": 2,
+  "name": "specZo",
+  "description": "You are what you read. Revitalize your feed.",
+  "version": "2.3",
+  "icons": {
+    "512": "newspaper.png"
+  },
+  "browser_action": {
+    "default_icon": "newspaper.png",
+    "default_popup": "credentials.html"
+  },
+  "background": {
+    "page": "background.html"
+  },
+  "permissions": [
+    "identity"
+  ],
+  "content_security_policy":"script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self'",
+  "oauth2": {
+    "client_id": "47427617943-v2ehlnrb9g6n5l534g1da27nd9prbm98.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email",
+      "https://www.googleapis.com/auth/userinfo.profile"
+    ]
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkiL+McTNbbKBw2F2BfNczU5Q1tKujAdsXZsJB6mC3uOke+iv6dE1AjcM8LAfKj+bYcr5zG1aBADjrTahw/dt9ESxp4mtdVZepuu0o4XlOkFZQPHW7FMjrtwmAC7dhqasUTa/0FTxc1xbGmz9ufs796SPSNxwCJqDqTJWO6CCj0tOR/cH9+fGdWG7GzWoYwJ6IFXTyZ+U+76zzfV+MpD6te1ueFsJQHD9FKGRa8xgHPIfsxMqDzVCGvpTmapifHy2VYj/sLVLbmfD/6yGWSryTAp7YJYrJZ8XqIldvXgy4TAIAzkwQvJHjclTQ7iOTcFNljPZ0NJFTeRFax6VCDHKTwIDAQAB"
+}
